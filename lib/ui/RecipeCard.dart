@@ -20,7 +20,7 @@ class RecipeCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       color: const Color(0xFF4a5568),
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
       child: Card(
         color: const Color(0xFF4a5568),
         elevation: 4,
@@ -49,6 +49,16 @@ class RecipeCard extends StatelessWidget {
                     fontSize: 20),
               ),
             ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
+              child: Text(
+                formatDateTime(recipeItem.createdAt),
+                style: const TextStyle(
+                    color: Colors.grey,
+                    fontWeight: FontWeight.normal,
+                    fontSize: 16),
+              ),
+            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
@@ -74,4 +84,26 @@ class RecipeCard extends StatelessWidget {
       ),
     );
   }
+}
+
+String formatDateTime(DateTime dateTime) {
+  final months = [
+    '', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+    'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'
+  ];
+
+  String month = months[dateTime.month];
+  int day = dateTime.day;
+  int hour = dateTime.hour;
+  int minute = dateTime.minute;
+  String period = hour < 12 ? 'AM' : 'PM';
+
+  // Convert 24-hour format to 12-hour format
+  if (hour > 12) {
+    hour -= 12;
+  }
+
+  String formattedDate = '$month $day $hour:$minute $period';
+
+  return formattedDate;
 }
